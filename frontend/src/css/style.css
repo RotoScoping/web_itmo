@@ -1,0 +1,102 @@
+
+input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #0056b3;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+/* Общие стили для страницы */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Стиль заголовка */
+header {
+    font-family: monospace;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Стили для таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Стили для кнопок */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.button-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.button-group button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для формы */
+.checkbox-group label {
+    display: block;
+    margin: 5px 0;
+}
+
+.inputY, .inputR {
+    width: 75%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Стили для холста */
+#graph {
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+/* Стиль таблицы результатов */
+#results th {
+    background-color: #e9ecef;
+}
+
+/* Стили для поля ввода с ошибками */
+.input-error {
+    border: 1px solid red;
+}
+
+/* Стили для сообщения об ошибке */
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+/* Стили для формы и таблицы */
+form {
+    margin: 20px 0;
+}
