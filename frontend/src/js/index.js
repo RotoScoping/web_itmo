@@ -181,52 +181,85 @@ function setY(newValue) {
 }
 
 function getData() {
-  const data = {
-    x: x,
-    y: getY(),
-    r: getR(),
+  const x = document.querySelector('.checkbox-group input[type="checkbox"]:checked');
+  const y = document.getElementById("y").value.trim();
+  const r = document.getElementById("R").value.trim();
+
+  return {
+    x: x ? x.value : null,
+    y: y,
+    r: r,
   };
-  return data;
 }
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('y').addEventListener('input', function () {
-    const yValue = this.value;
-    const errorMessage = this.nextElementSibling;  // Находим элемент ошибки рядом с input
-    if (!isNaN(yValue) && yValue >= -5 && yValue <= 5) {
-      errorMessage.textContent = '';  // Очищаем сообщение об ошибке
-      this.classList.remove('input-error');
-    } else {
-      errorMessage.textContent = 'Введите число от -5 до 5.';  // Выводим сообщение об ошибке
-      this.classList.add('input-error');
-    }
+  const yInput = document.getElementById('y');
+  const rInput = document.getElementById('R');
+
+  yInput.addEventListener('input', function () {
+    validateInput(yInput, -5, 5);
+  });
+
+  rInput.addEventListener('input', function () {
+    validateInput(rInput, 2, 5);
   });
 });
 
+// Функция для проверки значения поля
+function validateInput(inputElement, underBound, upperBound) {
+  const value = inputElement.value;
+  const errorMessage = inputElement.nextElementSibling;  // Находим элемент ошибки рядом с input
+
+  // Проверяем, является ли значение числом и находится ли оно в пределах границ
+  if (!isNaN(value) && value >= underBound && value <= upperBound) {
+    errorMessage.textContent = '';  // Очищаем сообщение об ошибке
+    inputElement.classList.remove('input-error');
+  } else {
+    errorMessage.textContent = `Введите число от ${underBound} до ${upperBound}.`;  // Выводим сообщение об ошибке
+    inputElement.classList.add('input-error');
+  }
+}
+
+function resetForm() {
+  document.getElementById("y").value = "";
+  document.getElementById("R").value = "";
+  const checkboxes = document.querySelectorAll("input[name='x']");
+  checkboxes.forEach(checkbox => checkbox.checked = false);
+  document.getElementById("submitButton").disabled = true;
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach(message => message.textContent = "");
+}
 
 
-document.addEventListener('DOMContentLoaded', function () {
-// Фукнция, которая обнуляет все чекбоксы при нажатии одного чекбокса
-  document.getElementById('checkboxForm').addEventListener('click', function(event) {
-    if (event.target.type === 'checkbox') {
-      toggleCheckboxes(event.target);
-    }
-  });
-});
+
+function checkInputs() {
+  // Получаем значение чекбокса x
+  const x = document.querySelector('.checkbox-group input[type="checkbox"]:checked');
+  // Получаем значения y и R
+  const y = document.getElementById('y').value.trim();
+  const R = document.getElementById('R').value.trim();
+
+  // Проверяем, что все значения заполнены
+  const submitButton = document.getElementById('submitButton');
+  if (x && y !== '' && R !== '' && !( y>5 || y<-5 || R<2 || R>5)) {
+    submitButton.disabled = false;  // Активируем кнопку, если все значения есть
+  } else {
+    submitButton.disabled = true;  // Деактивируем кнопку, если хотя бы одно значение не заполнено
+  }
+}
+
+
 
 function toggleCheckboxes(clickedCheckbox) {
-  const rVal = clickedCheckbox.value;
-  setR(rVal);
-
-  // Get all checkboxes within the checkbox group
   const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
-
-  // Uncheck all checkboxes except the clicked one
+  // Проходим по каждому чекбоксу
   checkboxes.forEach(checkbox => {
+    // Если чекбокс не тот, который был нажат, отключаем его
     if (checkbox !== clickedCheckbox) {
       checkbox.checked = false;
     }
+    checkInputs();
   });
 }
 

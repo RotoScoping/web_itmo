@@ -7,8 +7,7 @@ function runGrapher() {
   const ctx = canvas.getContext("2d");
 
   const FIGURE_COLOR = "#567efb99";
-  const POINT_COLOR = "#4A76FE99";
-  const points = [];
+
 
   function drawGraph() {
     ctx.font = "13px sans-serif";
@@ -18,9 +17,9 @@ function runGrapher() {
     ctx.fillStyle = FIGURE_COLOR;
 
     ctx.beginPath();
-    ctx.moveTo(width / 2, height / 6); // (150, 50)
-    ctx.lineTo((5 * width) / 6, height / 2); // 250, 150
-    ctx.lineTo(width / 2, height / 2);
+    ctx.moveTo(width / 3, height / 2); // (175, 50)
+    ctx.lineTo(width / 2, height / 2); // 291, 175
+    ctx.lineTo(width / 2,  height / 1.2 );
     ctx.fill();
 
     ctx.beginPath();
@@ -41,12 +40,12 @@ function runGrapher() {
 
 
     ctx.beginPath();
-    ctx.arc(width / 2, height / 2, width / 3, -1.58, Math.PI, true);
+    ctx.arc(width / 2, height / 2, width / 3, Math.PI / 2, 0 , true);
     ctx.lineTo(width / 2, height / 2);
     ctx.fill();
 
-
-    ctx.fillRect(width / 2, (3 * height) / 6, width / 6, height / 3);
+    // 175 175 175 58 117
+    ctx.fillRect(width / 2, (3 * height) / 6, -width / 6, -height / 3);
 
     ctx.fillStyle = "#000";
     const labels = ["-R", "-R/2", "", "R/2", "R"];
@@ -68,50 +67,9 @@ function runGrapher() {
       ctx.fillText(labels[i - 1], width / 2 + 7, height - (i * height) / 6);
     }
 
-    const r = getR();
-
-    points.forEach((point, index) => {
-      const x = ((point.x / r) * width) / 3 + width / 2;
-      const y = ((-point.y / r) * height) / 3 + height / 2;
-
-      ctx.fillStyle = point.color;
-      ctx.beginPath();
-      ctx.arc(x, y, 5, 0, Math.PI * 2);
-      ctx.fill();
-    });
   }
 
   drawGraph();
 
-  canvas.onmousemove = (e) => {
-    drawGraph();
-    ctx.fillStyle = POINT_COLOR;
-    ctx.beginPath();
-    ctx.arc(e.offsetX, e.offsetY, 5, 0, Math.PI * 2);
-    ctx.fill();
-  };
 
-  canvas.onmouseleave = drawGraph;
-  //document.getElementById("form").onchange = drawGraph;
-
-  canvas.onmousedown = (e) => {
-    if (!r) {
-      alert("Please select a value for R first");
-      return;
-    }
-
-    const xClicked =
-      Math.round(((2 * e.offsetX) / width - 1) * r * 1.5 * 100) / 100;
-    const yClicked =
-      Math.round(((-2 * e.offsetY) / height + 1) * r * 1.5 * 100) / 100;
-
-    setX(xClicked);
-    setY(yClicked);
-
-    checkPoint();
-  };
-
-  return {
-    drawGraph,
-  };
 }
