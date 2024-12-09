@@ -1,0 +1,2 @@
+[Wed Oct 02 11:23:39.627201 2024] [mime:error] [pid 66645:tid 66645] (2)No such file or directory: AH01597: could not open mime types config file /usr/lib/httpd/modules/etc/apache24/mime.types.
+AH00016: Configuration Failed
